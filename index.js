@@ -39,6 +39,22 @@ app.post("/save-config", async (req, res) => {
       [companyName, color, logoUrl]
     );
 
+      console.log(result.rows[0]); 
+
+
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get("/get-config", async (req, res) => {
+  try {
+    const result = await pool.query(
+      "SELECT * FROM website_config ORDER BY id DESC LIMIT 1"
+    );
+
     res.json(result.rows[0]);
   } catch (err) {
     console.error(err);
