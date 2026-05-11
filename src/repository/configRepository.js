@@ -8,29 +8,32 @@ const saveConfig = async (data) => {
     heroTitle,
     heroDescription,
     buttonText,
+    template,
   } = data;
 
   const result = await pool.query(
-    `INSERT INTO website_config
-    (
-      company_name,
-      theme_color,
-      logo_url,
-      hero_title,
-      hero_description,
-      button_text
-    )
-    VALUES ($1, $2, $3, $4, $5, $6)
-    RETURNING *`,
-    [
-      companyName,
-      color,
-      logoUrl,
-      heroTitle,
-      heroDescription,
-      buttonText,
-    ]
-  );
+  `INSERT INTO website_config
+  (
+    company_name,
+    theme_color,
+    logo_url,
+    hero_title,
+    hero_description,
+    button_text,
+    template
+  )
+  VALUES ($1, $2, $3, $4, $5, $6, $7)
+  RETURNING *`,
+  [
+    companyName,
+    color,
+    logoUrl,
+    heroTitle,
+    heroDescription,
+    buttonText,
+    template,
+  ]
+);
 
   return result.rows[0];
 };
